@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Demo</string>
+
+    <!--nowapi天气预报地址-->
+    <string name="serverhost">http://api.k780.com/?/</string>
+    <!--中华万年历天气预报地址-->
+    <!--http://zhwnlapi.etouch.cn/Ecalender/api/v2/weather?date=20170726&citykey=101220105-->
+    <string name="serverhost_zhwnl">http://zhwnlapi.etouch.cn/Ecalender/api/v2/weather/</string>
+    <string name="area_name">地区名称</string>
+    <string name="test">测试</string>
+    <string name="humidity">湿度:</string>
+    <string name="init_humidity">0%</string>
+    <string name="temperature">温度:</string>
+    <string name="init_temperature">0℃</string>
+    <string name="guiyang">贵阳</string>
+</resources>
