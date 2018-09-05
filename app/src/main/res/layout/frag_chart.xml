@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.otitan.ui.viewmodel.ChartViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/toolbar_style"
+            app:navigationIcon="@drawable/ic_back"
+            android:paddingTop="@dimen/padding_top"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextColor="@color/white" />
+
+        <TextView
+            android:id="@+id/site"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{()->viewmodel.getSiteList()}"
+            android:padding="10dp"
+            android:text="@{viewmodel.site}"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lin_stime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp">
+
+                <TextView
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/monitor_time"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_arrow_right"
+                    android:onClick="@{()->viewmodel.startTime()}"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@={viewmodel.stime}"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin_etime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lin_stime">
+
+                <TextView
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/to"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_arrow_right"
+                    android:onClick="@{()->viewmodel.endTime()}"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@={viewmodel.etime}"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/search"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/lin_stime"
+                android:background="@color/colorPrimary"
+                android:onClick="@{()->viewmodel.search()}"
+                android:text="@string/search"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/tempLineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" />
+
+                <com.bin.david.form.core.SmartTable
+                    android:id="@+id/dataTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:visibility="@{viewmodel.isTable &amp;&amp; viewmodel.hasData?View.VISIBLE:View.GONE}" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.isTable||!viewmodel.hasData?View.GONE:View.VISIBLE}">
+
+                    <TextView
+                        android:id="@+id/maxValue"
+                        style="@style/tv_value_style"
+                        android:text="@{@string/max_value+viewmodel.maxValue}" />
+
+                    <TextView
+                        android:id="@+id/minValue"
+                        style="@style/tv_value_style"
+                        android:layout_below="@+id/maxValue"
+                        android:text="@{@string/min_value+viewmodel.minValue}" />
+
+                    <TextView
+                        android:id="@+id/aveValue"
+                        style="@style/tv_value_style"
+                        android:layout_below="@+id/minValue"
+                        android:text="@{@string/ave_value+viewmodel.aveValue}" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">Demo</string>
+    <string name="app_name">森林生态监测</string>
 
     <!--nowapi天气预报地址-->
     <string name="serverhost">http://api.k780.com/?/</string>
     <!--中华万年历天气预报地址-->
     <!--http://zhwnlapi.etouch.cn/Ecalender/api/v2/weather?date=20170726&citykey=101220105-->
     <string name="serverhost_zhwnl">http://zhwnlapi.etouch.cn/Ecalender/api/v2/weather/</string>
+    <string name="serverhost_weatherid">http://flash.weather.com.cn/wmaps/xml/china.xml/</string>
     <string name="area_name">地区名称</string>
     <string name="test">测试</string>
     <string name="humidity">湿度:</string>
@@ -13,4 +14,129 @@
     <string name="temperature">温度:</string>
     <string name="init_temperature">0℃</string>
     <string name="guiyang">贵阳</string>
+    <string name="time_sure">确定</string>
+    <string name="site_name">站点名称:</string>
+    <string name="monitor_time">观测时间：</string>
+    <string name="to">至：</string>
+    <string name="search">查询</string>
+    <string name="max_value">最大值：</string>
+    <string name="min_value">最小值：</string>
+    <string name="ave_value">平均值：</string>
+    <string name="pm10">PM10</string>
+    <string name="no2">NO₂</string>
+    <string name="so2">SO₂</string>
+    <string name="o3">O₃</string>
+    <string name="co">CO</string>
+
+    <!--动态获取权限-->
+    <string name="help">帮助</string>
+    <string name="string_help_text">当前应用缺少必要权限。请点击设置->权限，进行设置</string>
+    <string name="quit">退出</string>
+    <string name="settings">设置</string>
+    <string name="location_perssion">定位权限</string>
+
+    <string name="cancle">取    消</string>
+    <string name="sure">确    定</string>
+    <string name="wrzs">污染指数</string>
+    <string name="kqzlzs">空气质量指数</string>
+
+
+    <string-array name="site_array">
+        <item>长坡岭生态监测站</item>
+    </string-array>
+
+    <string-array name="monitor_item">
+        <item>梯度自动气象站(林内)</item>
+        <item>自动气象站(林外)</item>
+        <item>森林生态实时监测</item>
+        <item>雨滴谱仪实时监测</item>
+        <item>土壤水势实时监测</item>
+        <item>树干液流实时监测</item>
+    </string-array>
+
+    <!--自动气象站林内-->
+    <string-array name="monitor_sub_zdqxzln">
+        <item>温度实时监测</item>
+        <item>湿度实时监测</item>
+        <item>风速实时监测</item>
+    </string-array>
+
+    <!--自动气象站林外-->
+    <string-array name="monitor_sub_zdqxzlw">
+        <item>温度实时监测</item>
+        <item>湿度实时监测</item>
+        <item>风速实时监测</item>
+    </string-array>
+
+    <!--森林生态实时监测-->
+    <string-array name="monitor_sub_slst">
+        <item>PM2.5实时监测</item>
+        <item>负氧离子实时监测</item>
+    </string-array>
+
+    <!--雨滴谱仪-->
+    <string-array name="monitor_sub_ydpy">
+        <item>降雨量累计值</item>
+        <item>MOR能见度</item>
+        <item>降雨强度</item>
+    </string-array>
+
+    <!--土壤水势-->
+    <string-array name="monitor_sub_trss">
+        <item>土壤水势</item>
+        <item>土壤温度</item>
+    </string-array>
+
+    <!--树干液流-->
+    <string-array name="monitor_sub_sgyl">
+        <item>液流质量流量实时监测</item>
+    </string-array>
+
+    <!--气象站林内 温度-->
+    <string-array name="zdqxzln_wd">
+        <item>5米处温度</item>
+        <item>10米处温度</item>
+        <item>15米处温度</item>
+        <item>20米处温度</item>
+        <item>25米处温度</item>
+        <item>30米处温度</item>
+    </string-array>
+
+    <!--气象站林内 湿度-->
+    <string-array name="zdqxzln_sd">
+        <item>5米处湿度</item>
+        <item>10米处湿度</item>
+        <item>15米处湿度</item>
+        <item>20米处湿度</item>
+        <item>25米处湿度</item>
+        <item>30米处湿度</item>
+    </string-array>
+
+    <!--气象站林内 风速-->
+    <string-array name="zdqxzln_fs">
+        <item>5米处风速</item>
+        <item>10米处风速</item>
+        <item>15米处风速</item>
+        <item>20米处风速</item>
+        <item>25米处风速</item>
+        <item>30米处风速</item>
+    </string-array>
+
+    <!--树干液流 仪器-->
+    <string-array name="sgyl_yq">
+        <item>1#仪器-灯台树</item>
+        <item>2#仪器-灯台树</item>
+        <item>3#仪器-椤木石楠</item>
+        <item>4#仪器-灯台树</item>
+        <item>5#仪器-灯台树</item>
+        <item>6#仪器-椤木石楠</item>
+        <item>7#仪器-梓木</item>
+        <item>8#仪器-椤木石楠</item>
+        <item>9#仪器-山樱桃</item>
+        <item>10#仪器-灯台树</item>
+        <item>11#仪器-椤木石楠</item>
+        <item>12#仪器-朴树</item>
+    </string-array>
+
+
 </resources>

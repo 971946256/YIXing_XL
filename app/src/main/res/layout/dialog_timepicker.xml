@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.otitan.ui.viewmodel.TimePickerViewModel"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <DatePicker
+            android:id="@+id/set_datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone">
+            <!--<DatePicker-->
+                <!--android:id="@+id/set_datepicker"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="180dp"-->
+                <!--android:calendarViewShown="false"-->
+                <!--android:datePickerMode="spinner" />-->
+            <NumberPicker
+                android:id="@+id/picker_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"/>
+
+            <NumberPicker
+                android:id="@+id/picker_minute"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:visibility="visible"/>
+        </LinearLayout>
+        <TimePicker
+            android:id="@+id/set_timepicker"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="-40dp"
+            android:timePickerMode="spinner"
+            android:visibility="visible"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="-30dp"
+            android:background="@color/colorPrimary"
+            android:onClick="@{()->viewmodel.sure()}"
+            android:text="@string/time_sure"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</layout>

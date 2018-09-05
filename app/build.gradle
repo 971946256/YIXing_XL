@@ -1,17 +1,37 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+//Bugly热更新依赖插件脚本
+//apply from: 'tinker-support.gradle'
 
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.titan.tianqidemo"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //向上兼容矢量动画
+        vectorDrawables.useSupportLibrary = true
+        ndk {
+            //bugly设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+//    kapt {
+//        generateStubs = true
+//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -28,27 +48,43 @@ dependencies {
     /*kotlin依赖*/
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.anko:anko-common:$anko_version"
+    /*databinding依赖*/
+    kapt "com.android.databinding:compiler:$android_plugin_version"
+    /*bugly*/
+    implementation 'com.tencent.bugly:crashreport_upgrade:1.3.4'
+    implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
     /*gson*/
-    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
     /*图片加载*/
     implementation 'com.squareup.picasso:picasso:2.5.2'
-    /** Retrofit */
-    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    /* Retrofit */
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     implementation('com.squareup.retrofit2:converter-simplexml:2.1.0') {
         exclude module: 'stax-api'
         exclude module: 'stax'
         exclude module: 'xpp3'
     }
-    /**rx*/
+    /*rx*/
     implementation 'io.reactivex:rxandroid:1.2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    /*图表*/
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    /*material风格的dialog*/
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    /*表格*/
+    implementation 'com.github.huangyanbin:SmartTable:2.0'
+    /*下拉刷新,上拉加载*/
+    implementation('com.lcodecorex:tkrefreshlayout:1.0.7') {
+        exclude group: 'com.android.support'
+    }
 }
 
-buildscript{
+buildscript {
     repositories {
         jcenter()
     }
