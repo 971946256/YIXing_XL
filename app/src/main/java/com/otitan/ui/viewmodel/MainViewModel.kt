@@ -7,6 +7,7 @@ import com.otitan.base.BaseViewModel
 import com.otitan.data.DataRepository
 import com.otitan.data.Injection
 import com.otitan.data.remote.RemoteDataSource
+import com.otitan.model.AddressModel
 import com.otitan.model.AllForecastModel
 import com.otitan.model.AllNewDataModel
 import com.otitan.model.MonitorModel
@@ -40,6 +41,22 @@ class MainViewModel() : BaseViewModel() {
     //城市天气代码
     var citykey = ""
 
+    //联系人信息
+    var addressModel: AddressModel by Delegates.notNull()
+
+    //5斤手提
+    var wjst = ObservableField<String>("0")
+    //30中果
+    var sszg = ObservableField<String>("0")
+    //30大果
+    var ssdg = ObservableField<String>("0")
+    //呆小萌
+    var dxm = ObservableField<String>("0")
+    //5斤小果
+    var wjxg = ObservableField<String>("0")
+    //3斤小果
+    var sjxg = ObservableField<String>("0")
+
     val array = arrayOf(R.array.monitor_sub_zdqxzln, R.array.monitor_sub_zdqxzlw, R.array.monitor_sub_slst
             , R.array.monitor_sub_ydpy, R.array.monitor_sub_trss, R.array.monitor_sub_sgyl)
 
@@ -52,6 +69,15 @@ class MainViewModel() : BaseViewModel() {
         super.onCreate()
         mView.startRefresh()
 //        requestNetWork()
+    }
+
+    fun addAddress() {
+//        mView.addAddress()
+        mView.selectItem()
+    }
+
+    fun inputExcel() {
+        mView.inputExcel()
     }
 
     fun requestNetWork() {

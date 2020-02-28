@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,7 +9,7 @@
             type="com.otitan.ui.viewmodel.MainViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:id="@+id/mainLinear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{@string/wjst+viewmodel.wjst}"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{@string/sszg+viewmodel.sszg}"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{@string/ssdg+viewmodel.ssdg}"
+                android:textColor="@color/red" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -36,8 +59,42 @@
                 android:padding="10dp"
                 android:text="@{viewmodel.site}"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{@string/dxm+viewmodel.dxm}"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{@string/wjxg+viewmodel.wjxg}"
+                android:textColor="@color/red" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{@string/sjxg+viewmodel.sjxg}"
+                android:textColor="@color/red" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/black" />
 
         <TextView
             android:layout_width="match_parent"
@@ -144,19 +201,66 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-            android:id="@+id/refreshLayout"
+        <!--        <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout-->
+        <!--            android:id="@+id/refreshLayout"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:tr_head_height="40dp"-->
+        <!--            app:tr_max_head_height="80dp">-->
+
+        <!--            <android.support.v7.widget.RecyclerView-->
+        <!--                android:id="@+id/monitorList"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:overScrollMode="never" />-->
+        <!--        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>-->
+        <EditText
+            android:id="@+id/edit_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tr_head_height="40dp"
-            app:tr_max_head_height="80dp">
+            android:layout_margin="10dp"
+            android:hint="请将用戶信息粘贴到此处"
+            android:minHeight="14dp"
+            android:visibility="gone" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/monitorList"
-                android:layout_width="match_parent"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_address_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:overScrollMode="never" />
+
+        <Button
+            android:id="@+id/btn_add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/Blue"
+            android:onClick="@{()->viewmodel.addAddress()}"
+            android:text="Add"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_sure"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:overScrollMode="never" />
-        </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+                android:layout_weight="1"
+                android:onClick="@{()->viewmodel.inputExcel()}"
+                android:text="@string/sure" />
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/edit" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
 </layout>

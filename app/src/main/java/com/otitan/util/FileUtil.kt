@@ -90,5 +90,50 @@ class FileUtil {
             }
             return ""
         }
+
+        fun getAddress(): String {
+            var str: String? = ""
+            val path = "${Environment.getExternalStorageDirectory()}/ABC"
+            val folder = File(path)
+            if (!folder.exists()) {
+                folder.mkdirs()
+            }
+            val filePath = "$path/abc.txt"
+            val file = File(filePath)
+            if (file.exists()) {
+                str = getContentFromSdcard(filePath)
+            }
+            return str ?: ""
+        }
+
+        fun getContentFromSdcard(filePathAndName: String): String? {
+            try {
+                val fr = FileReader(filePathAndName)
+                var bufReader: BufferedReader? = null
+                try {
+                    if (null == fr) {
+                        return null
+                    }
+                    bufReader = BufferedReader(fr)
+                    var result = ""
+                    var line: String? = bufReader.readLine()
+                    while (line != null) {
+                        result += line
+                        line = bufReader.readLine()
+                    }
+                    return result
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    fr.close()
+                    bufReader?.close()
+                }
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            }
+
+            return null
+        }
+
     }
 }

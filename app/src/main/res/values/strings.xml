@@ -1,6 +1,15 @@
 <resources>
-    <string name="app_name">森林生态监测</string>
+    <string name="app_name">地址转换</string>
 
+    <string name="name">姓名：</string>
+    <string name="phone">电话：</string>
+    <string name="address">地址：</string>
+    <string name="wjst">5斤手提：</string>
+    <string name="sszg">30中果：</string>
+    <string name="ssdg">30大果：</string>
+    <string name="dxm">呆小萌：</string>
+    <string name="wjxg">5斤小果：</string>
+    <string name="sjxg">3斤小果：</string>
     <!--nowapi天气预报地址-->
     <string name="serverhost">http://api.k780.com/?/</string>
     <!--中华万年历天气预报地址-->
@@ -9,6 +18,7 @@
     <string name="serverhost_weatherid">http://flash.weather.com.cn/wmaps/xml/china.xml/</string>
     <string name="area_name">地区名称</string>
     <string name="test">测试</string>
+    <string name="test_long">测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试</string>
     <string name="humidity">湿度:</string>
     <string name="init_humidity">0%</string>
     <string name="temperature">温度:</string>
@@ -27,6 +37,7 @@
     <string name="so2">SO₂</string>
     <string name="o3">O₃</string>
     <string name="co">CO</string>
+    <string name="edit">编辑</string>
 
     <!--动态获取权限-->
     <string name="help">帮助</string>

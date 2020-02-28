@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="model">
+        <item>通用</item>
+        <item>极简</item>
+    </array>
+</resources>

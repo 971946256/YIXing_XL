@@ -15,4 +15,10 @@ interface IMain {
     fun setImage(url: String)
 
     fun startRefresh()
+
+    fun addAddress()
+
+    fun inputExcel()
+
+    fun selectItem()
 }
