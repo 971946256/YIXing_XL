@@ -1,5 +1,15 @@
 package com.otitan.util;
 
-public class aa {
+import android.databinding.DataBindingComponent;
 
+public class aa implements android.databinding.DataBindingComponent {
+
+     CustomDataBindingUtil util;
+
+    public  CustomDataBindingUtil getCustomDataBindingUtil() {
+        if (util == null) {
+            util = new CustomDataBindingUtil();
+        }
+        return util;
+    }
 }

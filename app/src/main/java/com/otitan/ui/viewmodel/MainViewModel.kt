@@ -73,7 +73,6 @@ class MainViewModel() : BaseViewModel() {
 
     fun addAddress() {
 //        mView.addAddress()
-        mView.selectItem()
     }
 
     fun inputExcel() {

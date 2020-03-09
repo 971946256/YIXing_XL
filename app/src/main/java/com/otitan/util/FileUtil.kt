@@ -8,6 +8,7 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.otitan.model.CityModel
+import com.otitan.model.ZLkModel
 import java.io.*
 import java.net.URL
 
@@ -135,5 +136,35 @@ class FileUtil {
             return null
         }
 
+        fun getZlk(context: Context): List<ZLkModel> {
+            var inputStream: InputStream? = null
+            var bos: ByteArrayOutputStream? = null
+            try {
+                inputStream = context.assets.open("ZLK.json")
+                bos = ByteArrayOutputStream()
+                val bytes = ByteArray(4 * 1024)
+                var len: Int
+                do {
+                    len = inputStream.read(bytes)
+                    if (len == -1) {
+                        break
+                    }
+                    bos.write(bytes, 0, len)
+                } while (true)
+                val json = String(bos.toByteArray())
+                val type = object : TypeToken<List<ZLkModel>>() {}.type
+                return Gson().fromJson(json, type)
+            } catch (e: Exception) {
+                Log.e("tag", "read zlk error:$e")
+            } finally {
+                try {
+                    inputStream?.close()
+                    bos?.close()
+                } catch (e: IOException) {
+                    Log.e("tag", "closeErr:$e")
+                }
+            }
+            return ArrayList()
+        }
     }
 }

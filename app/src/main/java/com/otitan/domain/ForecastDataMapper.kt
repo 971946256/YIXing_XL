@@ -13,9 +13,9 @@ class ForecastDataMapper {
 
     fun convertFromAllForecast(allForecastModel: AllForecastModel): List<MainItemModel> {
         val list = ArrayList<MainItemModel>()
-        list.add(MainItemModel(0, allForecastModel.observe))
-        list.add(MainItemModel(1, allForecastModel.hourfc))
-        list.add(MainItemModel(2, allForecastModel.forecast))
+//        list.add(MainItemModel(0, allForecastModel.observe))
+//        list.add(MainItemModel(1, allForecastModel.hourfc))
+//        list.add(MainItemModel(2, allForecastModel.forecast))
         return list
     }
 

@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">地址转换</string>
+    <string name="app_name">弈星工具箱</string>
 
     <string name="name">姓名：</string>
     <string name="phone">电话：</string>
     <string name="address">地址：</string>
-    <string name="wjst">5斤手提：</string>
+    <string name="calculator">花粉计算器</string>
     <string name="sszg">30中果：</string>
     <string name="ssdg">30大果：</string>
     <string name="dxm">呆小萌：</string>

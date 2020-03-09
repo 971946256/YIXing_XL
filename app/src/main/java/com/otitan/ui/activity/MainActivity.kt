@@ -1,47 +1,43 @@
 package com.otitan.ui.activity
 
 import android.Manifest
-import android.content.Context
 import android.databinding.Observable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Environment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
 import android.util.Log
-import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
 import com.otitan.TitanApplication
 import com.otitan.base.BaseActivity
 import com.otitan.location.MyBDLocationListener
-import com.otitan.model.AddressModel
-import com.otitan.model.BZModel
-import com.otitan.model.CityInfoModel
-import com.otitan.model.MonitorModel
+import com.otitan.model.*
 import com.otitan.permission.PermissionsActivity
 import com.otitan.permission.PermissionsChecker
-import com.otitan.ui.adapter.MainSAdapter
 import com.otitan.ui.adapter.MainAdapter
-import com.otitan.ui.mview.ISMain
+import com.otitan.ui.adapter.MainSAdapter
 import com.otitan.ui.mview.IMain
 import com.otitan.ui.mview.IMainItem
+import com.otitan.ui.mview.ISMain
 import com.otitan.ui.viewmodel.MainViewModel
 import com.otitan.util.FileUtil
 import com.otitan.util.TitanItemDecoration
 import com.otitan.util.Utli
 import com.titan.tianqidemo.BR
 import com.titan.tianqidemo.R
-import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.async
-import org.jetbrains.anko.collections.forEachWithIndex
-import org.jetbrains.anko.uiThread
-import java.net.URL
-import kotlin.properties.Delegates
 import com.titan.tianqidemo.databinding.ActivityMainBinding
+import org.jetbrains.anko.async
+import org.jetbrains.anko.collections.forEachByIndex
+import org.jetbrains.anko.collections.forEachWithIndex
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.uiThread
 import java.io.File
+import java.net.URL
+import kotlin.properties.Delegates
 
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, IMainItem, ISMain {
@@ -56,6 +52,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
     private var viewmodel: MainViewModel? = null
 
     val addList = ArrayList<AddressModel>()
+    val mDrawables = arrayOf(R.drawable.ic_calculator, R.drawable.ic_add_data, R.drawable.ic_details,
+            R.drawable.ic_export, R.drawable.ic_import, R.drawable.ic_data)
 
     override fun initVariableId(): Int {
         return BR.viewmodel
@@ -107,7 +105,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
         }
 //        initBDLoc()
 
-//        initAdapter()
+        initAdapter()
 
         /*binding.refreshLayout.setEnableLoadmore(false)
         binding.refreshLayout.setOnRefreshListener(object : RefreshListenerAdapter() {
@@ -142,8 +140,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
     }
 
     override fun setProgress(progress: Float, title: String) {
-        circleProgress.setProgress(progress)
-        circleProgress.setTitle(title)
     }
 
     override fun setImage(url: String) {
@@ -167,16 +163,21 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
     }
 
     fun initAdapter() {
-        /*val layoutManager = LinearLayoutManager(this, OrientationHelper.VERTICAL, false)
-        binding.monitorList.layoutManager = layoutManager
+        val drawableList = ArrayList<MainItemModel>()
+        val array = resources.getStringArray(R.array.main_title)
+        for (i in mDrawables.indices) {
+            drawableList.add(MainItemModel(mDrawables[i], array[i]))
+        }
+        val layoutManager = GridLayoutManager(this, 4)
+        binding.rvToolList.layoutManager = layoutManager
 //        binding.monitorList.addItemDecoration(TitanItemDecoration(this,LinearLayoutManager.VERTICAL,10))
         if (adapter == null) {
-            adapter = MainAdapter(this, viewModel.initMonitorList(), this, viewModel.selectList)
+            adapter = MainAdapter(this, drawableList, this)
         } else {
-            adapter?.setList(viewModel.initMonitorList())
+            adapter?.setList(drawableList)
         }
         Log.e("tag", "adapter:$adapter")
-        binding.monitorList.adapter = adapter*/
+        binding.rvToolList.adapter = adapter
     }
 
     override fun addAddress() {
@@ -216,12 +217,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
 //            }
 
         val layoutManager = LinearLayoutManager(this, OrientationHelper.VERTICAL, false)
-        binding.rvAddressList.layoutManager = layoutManager
-        binding.rvAddressList.addItemDecoration(TitanItemDecoration(this, LinearLayoutManager.VERTICAL, 10))
+        binding.rvToolList.layoutManager = layoutManager
+        binding.rvToolList.addItemDecoration(TitanItemDecoration(this, LinearLayoutManager.VERTICAL, 10))
         val adapter = MainSAdapter(this, addList, this)
 
         Log.e("tag", "adapter:$adapter")
-        binding.rvAddressList.adapter = adapter
+        binding.rvToolList.adapter = adapter
 //        }
     }
 
@@ -269,7 +270,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
         when (type) {
             1 -> {
                 for (file in assestList) {
-                    if (file=="tongyong.xls") {
+                    if (file == "tongyong.xls") {
                         Utli.copyFileFromAssets(this, file, putPath)
                         //通用
                         Utli.writeExcel(File(putPath), addList)
@@ -278,7 +279,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
             }
             2 -> {
                 for (file in assestList) {
-                    if (file=="model.xls") {
+                    if (file == "model.xls") {
                         Utli.copyFileFromAssets(this, file, putPath)
                         //极简
                         Utli.writeExcelSimple(File(putPath), addList)
@@ -290,122 +291,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
         longToast("复制完成")
     }
 
-    override fun selectItem() {
-        val path = "${Environment.getExternalStorageDirectory()}/ABC"
-        val file = File(path)
-        val files = file.listFiles()
-        if (files == null) {
-            longToast("文件夹为空目录")
-            return
-        }
-        val s = ArrayList<String>()
-        for (cFile in files) {
-            if (cFile.isFile && cFile.name.endsWith(".csv")) {
-                s.add(cFile.name)
-            }
-        }
-        MaterialDialog.Builder(this)
-                .title("请选择文件")
-                .negativeText("取消")
-                .items(s)
-                .itemsCallback { dialog, itemView, position, text ->
-                    val list = Utli.readCSV(text.toString())
-                    val array1 = ArrayList<AddressModel>()
-                    val array2 = ArrayList<AddressModel>()
-                    val array3 = ArrayList<AddressModel>()
-                    val array4 = ArrayList<AddressModel>()
-                    val array5 = ArrayList<AddressModel>()
-                    val array6 = ArrayList<AddressModel>()
-                    addList.clear()
-                    for (item in list) {
-                        val array = item.split(",")
-                        for (i in 1..array[3].toInt()) {
-                            if (array[11] != "等待出库") {
-                                continue
-                            }
-                            val addressModel = AddressModel()
-                            when (array[1]) {
-                                "56163744486" -> {
-                                    addressModel.remarks = "5斤手提礼盒"
-                                    addressModel.name = array[14]
-                                    addressModel.phone = array[16]
-                                    addressModel.address = array[15]
-                                    array1.add(addressModel)
-                                }
-                                "56163744484" -> {
-                                    addressModel.remarks = "30枚中果"
-                                    addressModel.name = array[14]
-                                    addressModel.phone = array[16]
-                                    addressModel.address = array[15]
-                                    array2.add(addressModel)
-                                }
-                                "56163744485" -> {
-                                    addressModel.remarks = "30枚大果"
-                                    addressModel.name = array[14]
-                                    addressModel.phone = array[16]
-                                    addressModel.address = array[15]
-                                    array3.add(addressModel)
-                                }
-                                "58580062290" -> {
-                                    addressModel.remarks = "5斤小果"
-                                    addressModel.name = array[14]
-                                    addressModel.phone = array[16]
-                                    addressModel.address = array[15]
-                                    array4.add(addressModel)
-                                }
-                                "58580062289" -> {
-                                    addressModel.remarks = "3斤小果"
-                                    addressModel.name = array[14]
-                                    addressModel.phone = array[16]
-                                    addressModel.address = array[15]
-                                    array5.add(addressModel)
-                                }
-                                "56163744487" -> {
-                                    addressModel.remarks = "呆小萌礼盒"
-                                    addressModel.name = array[14]
-                                    addressModel.phone = array[16]
-                                    addressModel.address = array[15]
-                                    array6.add(addressModel)
-                                }
-                            }
-
-                        }
-                    }
-                    addList.addAll(array1)
-                    addList.addAll(array2)
-                    addList.addAll(array3)
-                    addList.addAll(array4)
-                    addList.addAll(array5)
-                    addList.addAll(array6)
-                    //5斤手提礼盒
-                    viewmodel?.wjst?.set(array1.size.toString())
-                    //30枚中果
-                    viewmodel?.sszg?.set(array2.size.toString())
-                    //30枚大果
-                    viewmodel?.ssdg?.set(array3.size.toString())
-                    //5斤小果
-                    viewmodel?.wjxg?.set(array4.size.toString())
-                    //3斤小果
-                    viewmodel?.sjxg?.set(array5.size.toString())
-                    //呆小萌礼盒
-                    viewmodel?.dxm?.set(array6.size.toString())
-                    val layoutManager = LinearLayoutManager(this, OrientationHelper.VERTICAL, false)
-                    binding.rvAddressList.layoutManager = layoutManager
-                    binding.rvAddressList.addItemDecoration(TitanItemDecoration(this, LinearLayoutManager.VERTICAL, 10))
-                    val adapter = MainSAdapter(this, addList, this)
-
-                    Log.e("tag", "adapter:$adapter")
-                    binding.rvAddressList.adapter = adapter
-                }.show()
-
-    }
-
     override fun setValue() {
 
     }
 
     override fun setList(itemList: List<MonitorModel>) {
-        adapter?.setList(itemList)
+//        adapter?.setList(itemList)
     }
 
     override fun showSiteChooseDialgo() {
@@ -425,10 +316,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
     }
 
     override fun setSelect(position: Int) {
-        viewModel.selectList.forEachWithIndex { i, b ->
-            viewModel.selectList[i] = position == i
-        }
-        adapter?.setData(viewModel.selectList)
     }
 
     override fun startActivity() {
@@ -441,4 +328,19 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
         viewModel.isLocation = false
     }
 
+    /**
+     * 手机返回键监听
+     */
+    private var firstTime: Long = 0
+
+    override fun onBackPressed() {
+        //super.onBackPressed();
+        val secondTime = System.currentTimeMillis()
+        if (secondTime - firstTime > 800) { // 两次点击间隔大于800毫秒，不退出
+            this.toast("再按一次退出程序")
+            firstTime = secondTime // 更新firstTime
+        } else {
+            System.exit(0) // 退出APP
+        }
+    }
 }

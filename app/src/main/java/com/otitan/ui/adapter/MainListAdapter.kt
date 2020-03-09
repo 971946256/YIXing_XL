@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_hour_weather.view.*
 class MainListAdapter(val itemList: List<MainItemModel>, val context: Context) : RecyclerView.Adapter<MainListAdapter.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
-        return itemList[position].type
+        return 0//itemList[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,11 +40,11 @@ class MainListAdapter(val itemList: List<MainItemModel>, val context: Context) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bindView(mainItemModel: MainItemModel, context: Context) {
-            when (mainItemModel.type) {
-                0 -> bindCurWeather(mainItemModel.obj as AllForecastModel.Observe)
-                1 -> bindHourForecast(mainItemModel.obj as List<AllForecastModel.Hourfc>, context)
-                2 -> bind5Forecast(mainItemModel.obj as List<AllForecastModel.Forecast>, context)
-            }
+//            when (mainItemModel.type) {
+//                0 -> bindCurWeather(mainItemModel.obj as AllForecastModel.Observe)
+//                1 -> bindHourForecast(mainItemModel.obj as List<AllForecastModel.Hourfc>, context)
+//                2 -> bind5Forecast(mainItemModel.obj as List<AllForecastModel.Forecast>, context)
+//            }
         }
 
         fun bindCurWeather(observe: AllForecastModel.Observe) {

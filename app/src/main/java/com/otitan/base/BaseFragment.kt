@@ -2,11 +2,16 @@ package com.otitan.base
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import com.titan.tianqidemo.R
 import kotlin.properties.Delegates
 
 abstract class BaseFragment<V : ViewDataBinding, VM : com.otitan.base.BaseViewModel> : Fragment(), com.otitan.base.IBaseActivity {
@@ -15,6 +20,14 @@ abstract class BaseFragment<V : ViewDataBinding, VM : com.otitan.base.BaseViewMo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //透明状态栏
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && activity?.window != null) {
+            val window = activity!!.window
+//            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = ContextCompat.getColor(activity!!, R.color.colorPrimaryDark)
+        }
         initParam()
     }
 

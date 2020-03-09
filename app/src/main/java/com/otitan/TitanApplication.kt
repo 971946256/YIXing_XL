@@ -3,7 +3,10 @@ package com.otitan
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.otitan.location.LocationService
 import com.tencent.bugly.Bugly
 import kotlin.properties.Delegates
@@ -36,6 +39,13 @@ class TitanApplication : Application() {
         Bugly.init(applicationContext, "05a0b171b2", false)
         locationService = LocationService(this.applicationContext)
         sharedPreferences = getSharedPreferences("info", Context.MODE_PRIVATE)
+
+        //图片加载初始化
+        val imagePipelineConfig = ImagePipelineConfig.newBuilder(this.applicationContext)
+                .setBitmapsConfig(Bitmap.Config.ARGB_4444)
+                .setDownsampleEnabled(true)
+                .build()
+        Fresco.initialize(this.applicationContext, imagePipelineConfig)
     }
 
 

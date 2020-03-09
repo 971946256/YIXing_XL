@@ -1,20 +1,13 @@
 package com.otitan.base
 
+//import com.otitan.util.CustomDataBindingComponent
 import android.content.pm.ActivityInfo
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
-import com.otitan.util.CustomDataBindingComponent
-import com.otitan.util.CustomDataBindingUtil
 import kotlin.properties.Delegates
-import android.view.WindowManager
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-import android.os.Build
-import android.view.View
 
 
 abstract class BaseActivity<V : ViewDataBinding, VM : com.otitan.base.BaseViewModel> : AppCompatActivity(), com.otitan.base.IBaseActivity {

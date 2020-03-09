@@ -20,5 +20,4 @@ interface IMain {
 
     fun inputExcel()
 
-    fun selectItem()
 }
