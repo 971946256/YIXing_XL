@@ -48,12 +48,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(), IMain, 
     // 所需的全部权限
     val PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE)
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)
     private var viewmodel: MainViewModel? = null
 
     val addList = ArrayList<AddressModel>()
     val mDrawables = arrayOf(R.drawable.ic_calculator, R.drawable.ic_add_data, R.drawable.ic_details,
-            R.drawable.ic_export, R.drawable.ic_import, R.drawable.ic_data)
+            R.drawable.ic_export, R.drawable.ic_data)//, R.drawable.ic_import
 
     override fun initVariableId(): Int {
         return BR.viewmodel

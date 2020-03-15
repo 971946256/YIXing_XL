@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.objectbox'
 apply plugin: 'kotlin-kapt'
 //Bugly热更新依赖插件脚本
 //apply from: 'tinker-support.gradle'
@@ -11,15 +12,17 @@ android {
         applicationId "com.titan.tianqidemo"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 2
-        versionName "2.0"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //向上兼容矢量动画
         vectorDrawables.useSupportLibrary = true
         ndk {
             //bugly设置支持的SO库架构
-            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi' , 'x86', 'armeabi-v7a'//, 'x86_64', 'arm64-v8a'
         }
+
+        multiDexEnabled true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,6 +49,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //多dex配置
+    implementation 'com.android.support:multidex:1.0.3'
     /*android库依赖*/
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
@@ -71,6 +76,14 @@ dependencies {
         exclude module: 'stax'
         exclude module: 'xpp3'
     }
+    /**Objectbox*/
+    // all below should be added automatically by the plugin
+    implementation "io.objectbox:objectbox-android:$objectboxVersion"
+    // some useful Kotlin extension functions
+    implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
+    //annotationProcessor "io.objectbox:objectbox-processor:$objectboxVersion"
+    //When using Kotlin use kapt instead:
+    kapt "io.objectbox:objectbox-processor:$objectboxVersion"
     /*rx*/
     implementation 'io.reactivex:rxandroid:1.2.1'
     testImplementation 'junit:junit:4.12'

@@ -377,14 +377,9 @@
                 </LinearLayout>
 
                 <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/button_circle"
                     android:onClick="@{()->viewmodel.compute()}"
                     android:text="确定"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                    style="@style/bt_sure_style" />
 
             </LinearLayout>
         </ScrollView>

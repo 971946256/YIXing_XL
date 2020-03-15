@@ -4,13 +4,20 @@
         <item>通用</item>
         <item>极简</item>
     </array>
+    <array name="phone_menu">
+        <item>复制</item>
+        <item>呼叫</item>
+        <item>发短信</item>
+        <item>新增联系人</item>
+        <item>保存到已有联系人</item>
+    </array>
 
     <array name="main_title">
         <item>花粉计算</item>
         <item>新增数据</item>
         <item>数据查看</item>
         <item>表格导出</item>
-        <item>表格导入</item>
+<!--        <item>表格导入</item>-->
         <item>资料库</item>
     </array>
 </resources>

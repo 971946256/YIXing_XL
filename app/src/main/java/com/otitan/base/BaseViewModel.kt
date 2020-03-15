@@ -73,9 +73,9 @@ open class BaseViewModel() : BaseObservable(), com.otitan.base.IBaseViewModel {
      * @param bundle        跳转所携带的信息
      */
     fun startContainerActivity(canonicalName: String, bundle: Bundle) {
-        val intent = Intent(mContext, com.otitan.base.ContainerActivity::class.java)
-        intent.putExtra(com.otitan.base.ContainerActivity.FRAGMENT, canonicalName)
-        intent.putExtra(com.otitan.base.ContainerActivity.BUNDLE, bundle)
+        val intent = Intent(mContext, ContainerActivity::class.java)
+        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName)
+        intent.putExtra(ContainerActivity.BUNDLE, bundle)
         mContext?.startActivity(intent)
     }
 
@@ -85,8 +85,8 @@ open class BaseViewModel() : BaseObservable(), com.otitan.base.IBaseViewModel {
      * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
      */
     fun startContainerActivity(canonicalName: String) {
-        val intent = Intent(mContext, com.otitan.base.ContainerActivity::class.java)
-        intent.putExtra(com.otitan.base.ContainerActivity.FRAGMENT, canonicalName)
+        val intent = Intent(mContext,ContainerActivity::class.java)
+        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName)
         mContext?.startActivity(intent)
     }
 

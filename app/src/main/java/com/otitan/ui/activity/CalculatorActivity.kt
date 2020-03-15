@@ -32,7 +32,6 @@ class CalculatorActivity() : BaseActivity<ActivityCalculatorBinding1, Calculator
     override fun initData() {
         super.initData()
         val toolbar = binding.toolbar
-        toolbar.title = "属性编辑"
         this.setSupportActionBar(toolbar)
         toolbar.setNavigationOnClickListener { this.finish() }
     }

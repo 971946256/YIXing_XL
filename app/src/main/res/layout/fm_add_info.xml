@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.otitan.ui.viewmodel.NewViewModel" />
+            type="com.otitan.ui.viewmodel.AddInfoViewModel" />
     </data>
 
     <LinearLayout
@@ -27,10 +27,201 @@
             app:title="新增调查表"
             app:titleTextColor="@color/white" />
 
-        <WebView
-            android:id="@+id/wb_new"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:drawableStart="@drawable/draw_star"
+                android:text="姓名" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入姓名"
+                android:text="@={viewmodel.name}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:drawableStart="@drawable/draw_star"
+                android:text="电话" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入电话号码"
+                android:inputType="number"
+                android:text="@={viewmodel.phone}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:drawableStart="@drawable/draw_star"
+                android:text="地址" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入详细地址"
+                android:text="@={viewmodel.address}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/draw_star"
+                android:text="基地面积(亩)" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入基地面积"
+                android:inputType="numberDecimal"
+                android:text="@={viewmodel.area}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:layout_height="wrap_content"
+                android:text="预计总用粉量(g)" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入花粉预计使用量"
+                android:inputType="numberDecimal"
+                android:text="@={viewmodel.usage}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:layout_height="wrap_content"
+                android:text="基地产量(斤/亩)" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入基地每亩平均产量"
+                android:inputType="numberDecimal"
+                android:text="@={viewmodel.yields}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:text="年销售量(万斤)" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入猕猴桃每年销售量"
+                android:inputType="numberDecimal"
+                android:text="@={viewmodel.salesVolume}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:text="19年果价(元/斤)" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入19年果子销售价格"
+                android:inputType="numberDecimal"
+                android:text="@={viewmodel.price19}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:layout_height="wrap_content"
+                android:text="20年果价预期(元/斤)" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:layout_gravity="center"
+                android:hint="请输入今年果子预期价格"
+                android:inputType="numberDecimal"
+                android:text="@={viewmodel.price}" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:text="是否收到19年销售款" />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="@={viewmodel.tailMoney}"
+                    android:text="是" />
+
+                <RadioButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="@={!viewmodel.tailMoney}"
+                    android:text="否" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/tv_add_info_style"
+                android:text="备注" />
+
+            <EditText
+                style="@style/et_add_info_style"
+                android:hint="请输入备注"
+                android:text="@={viewmodel.remark}" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            style="@style/bt_sure_style"
+            android:onClick="@{()->viewmodel.sure()}"
+            android:text="确定" />
     </LinearLayout>
 </layout>

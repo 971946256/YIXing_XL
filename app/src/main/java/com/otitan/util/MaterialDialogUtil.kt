@@ -73,6 +73,7 @@ class MaterialDialogUtil private constructor() {
         @JvmStatic
         fun showPromptDialog(context: Context, msg: String): MaterialDialog.Builder {
             return MaterialDialog.Builder(context)
+                    .title("提示")
                     .positiveText("确定")
                     .content(msg)
                     .onNegative { dialog, which -> dialog.dismiss() }

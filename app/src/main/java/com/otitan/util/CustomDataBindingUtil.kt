@@ -1,5 +1,6 @@
 package com.otitan.util
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.databinding.BindingAdapter
 import android.net.Uri
@@ -9,6 +10,9 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.common.ResizeOptions
 import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+import com.otitan.base.BindingCommand
 import com.otitan.customview.CustomCircleProgressBar
 import com.squareup.picasso.Picasso
 import com.titan.tianqidemo.R
@@ -30,9 +34,20 @@ class CustomDataBindingUtil {
         @JvmStatic
         fun setSrc(view: ImageView, resId: Int) {
 //            view.setImageURI((Uri.Builder()).scheme("res").path(resId.toString()).build())
-        view.setImageResource(resId)
+            view.setImageResource(resId)
         }
 
+        @BindingAdapter("app:onLongClick")
+        @JvmStatic
+        fun callPhpne(view: TextView, phone: String) {
+            view.setOnLongClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                val uri = Uri.parse("tel:$phone")
+                intent.data = uri
+                view.context.startActivity(intent)
+                true
+            }
+        }
 
         @BindingAdapter("app:resource")
         @JvmStatic
@@ -40,9 +55,23 @@ class CustomDataBindingUtil {
             Picasso.with(imageView.context).load(source).into(imageView)
 //        Glide.with(imageView.context).load(source).into(imageView)
         }
+
+        @BindingAdapter("app:onRefresh", "app:onLoadMore", requireAll = false)
+        @JvmStatic
+        fun onRefreshAndLoadMore(layout: TwinklingRefreshLayout, refreshCall: BindingCommand, loadMoreCall: BindingCommand) {
+            layout.setOnRefreshListener(object : RefreshListenerAdapter() {
+                override fun onRefresh(refreshLayout: TwinklingRefreshLayout?) {
+                    super.onRefresh(refreshLayout)
+                    refreshCall.execute()
+                }
+
+                override fun onLoadMore(refreshLayout: TwinklingRefreshLayout?) {
+                    super.onLoadMore(refreshLayout)
+                    loadMoreCall.execute()
+                }
+            })
+        }
     }
-
-
 
 
 }

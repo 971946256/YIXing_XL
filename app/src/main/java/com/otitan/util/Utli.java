@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.otitan.model.AddressModel;
+import com.otitan.model.CustomerInfo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,6 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 
+import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -72,7 +74,7 @@ public class Utli {
     }
 
     public static String getTime() {
-        return new SimpleDateFormat("yyyyMMddHHmm", Locale.getDefault()).format(new Date(System.currentTimeMillis()));
+        return new SimpleDateFormat("yyyyMM", Locale.getDefault()).format(new Date(System.currentTimeMillis()));
     }
 
 
@@ -142,8 +144,67 @@ public class Utli {
             e.printStackTrace();
         }
 
-
     }
+
+
+    /**
+     * 写弈星客户信息表
+     *
+     * @param file       目标文件
+     * @param customInfo 用户信息
+     * @throws BiffException
+     * @throws IOException
+     * @throws RowsExceededException
+     * @throws WriteException
+     */
+    public static void writeExcelYX(File file, CustomerInfo customInfo) throws BiffException, IOException, RowsExceededException, WriteException {
+        Workbook book = Workbook.getWorkbook(file);
+        Sheet sheet = book.getSheet(0);
+        //获取行
+        int length = sheet.getRows();
+        WritableWorkbook workbook = Workbook.createWorkbook(file, book);
+        WritableSheet writableSheet = workbook.getSheet(0);
+        //添加时间
+        Label label0 = new Label(0, length, FormatUtil.dateFormat());
+        //姓名
+        Label label1 = new Label(1, length, customInfo.getName());
+        //电话
+        Label label2 = new Label(2, length, customInfo.getPhone());
+        //地址
+        Label label3 = new Label(3, length, customInfo.getAddress());
+        //面积
+        Label label4 = new Label(4, length, customInfo.getArea());
+        //预计花粉总使用量 g
+        Label label5 = new Label(5, length, customInfo.getUsage());
+        //基地产量 亩/斤
+        Label label6 = new Label(6, length, customInfo.getYields());
+        //19年果价
+        Label label7 = new Label(7, length, customInfo.getPrice19());
+        //预期果价
+        Label label8 = new Label(8, length, customInfo.getPrice());
+        //19年是否收到尾款 true是 false否
+        Label label9 = new Label(9, length, customInfo.getTailMoney() ? "是" : "否");
+        //备注
+        Label label10 = new Label(10, length, customInfo.getRemark());
+        //操作人
+//        Label label11 = new Label(10, length, customInfo.getRemark());
+
+        writableSheet.addCell(label0);
+        writableSheet.addCell(label1);
+        writableSheet.addCell(label2);
+        writableSheet.addCell(label3);
+        writableSheet.addCell(label4);
+        writableSheet.addCell(label5);
+        writableSheet.addCell(label6);
+        writableSheet.addCell(label7);
+        writableSheet.addCell(label8);
+        writableSheet.addCell(label9);
+        writableSheet.addCell(label10);
+//        writableSheet.addCell(label11);
+        workbook.write();
+        workbook.close();
+    }
+
 
     public static ArrayList<String> readCSV(String fileName) {
         ArrayList<String> list = new ArrayList<>();
@@ -159,6 +220,45 @@ public class Utli {
                 Log.e("tag", str);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static ArrayList<CustomerInfo> readCustomerInfo(File file) {
+        Workbook book;
+        // 输入流
+        InputStream is = null;
+        ArrayList<CustomerInfo> list = new ArrayList<>();
+        try {
+            // 加载Excel文件
+            is = new FileInputStream(file);
+            book = Workbook.getWorkbook(file);
+            Sheet sheet = book.getSheet(0);
+            Cell cell = null;// 单个单元格
+            //行遍历
+            for (int j = 1; j < sheet.getRows(); j++) {
+                CustomerInfo info = new CustomerInfo();
+                //列遍历
+                info.setTime(sheet.getCell(0, j).getContents());
+                info.setName(sheet.getCell(1, j).getContents());
+                info.setPhone(sheet.getCell(2, j).getContents());
+                info.setAddress(sheet.getCell(3, j).getContents());
+                info.setArea(sheet.getCell(4, j).getContents());
+                info.setUsage(sheet.getCell(5, j).getContents());
+                info.setYields(sheet.getCell(6, j).getContents());
+                info.setPrice19(sheet.getCell(7, j).getContents());
+                info.setPrice(sheet.getCell(8, j).getContents());
+                info.setTailMoney(sheet.getCell(9, j).getContents().equals("是"));
+                info.setRemark(sheet.getCell(10, j).getContents());
+                list.add(info);
+            }
+
+        } catch (IOException e) {
+            Log.e("tag", e.getMessage());
+            e.printStackTrace();
+        } catch (BiffException e) {
+            Log.e("tag", e.getMessage());
             e.printStackTrace();
         }
         return list;

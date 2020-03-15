@@ -1,0 +1,78 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:6167346376526253074",
+      "lastPropertyId": "13:8169052150418858602",
+      "name": "CustomerInfo",
+      "properties": [
+        {
+          "id": "1:7443028275997818059",
+          "name": "time"
+        },
+        {
+          "id": "2:1254124063144351230",
+          "name": "name"
+        },
+        {
+          "id": "3:8848396568323371766",
+          "name": "phone"
+        },
+        {
+          "id": "4:5708492551125272131",
+          "name": "address"
+        },
+        {
+          "id": "5:3891812703103889816",
+          "name": "area"
+        },
+        {
+          "id": "6:4180072568060916173",
+          "name": "usage"
+        },
+        {
+          "id": "7:5134564990260757269",
+          "name": "yields"
+        },
+        {
+          "id": "8:369362509851627341",
+          "name": "price19"
+        },
+        {
+          "id": "9:4908290551742289265",
+          "name": "price"
+        },
+        {
+          "id": "10:1171337260697645819",
+          "name": "tailMoney"
+        },
+        {
+          "id": "11:7684128502505077972",
+          "name": "remark"
+        },
+        {
+          "id": "12:2820782128606092136",
+          "name": "operator"
+        },
+        {
+          "id": "13:8169052150418858602",
+          "name": "id"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:6167346376526253074",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.otitan.ui.viewmodel.InfoListItemViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_user"
+                android:onClick="@{()->viewmodel.onClick()}"
+                android:paddingStart="8dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:onClick="@{()->viewmodel.onClick()}"
+                android:padding="8dp"
+                android:text="@{viewmodel.model.name}"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <!--            android:onClick="@{()->viewmodel.onClick()}"-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_phone"
+                android:paddingStart="18dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="@{()->viewmodel.phoneMenu()}"
+                android:padding="8dp"
+                android:text="@{viewmodel.model.phone}"
+                android:textColor="@color/black"
+                android:textIsSelectable="true"
+                android:textSize="18sp" />
+
+            <!-- 长按打电话 app:onLongClick="@{viewmodel.model.phone}"-->
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginEnd="31dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{`地址：`+viewmodel.model.address}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginEnd="31dp"
+            android:onClick="@{()->viewmodel.onClick()}"
+            android:paddingTop="5dp"
+            android:text="@{`基地面积：`+viewmodel.model.area+`  亩`}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="31dp"
+                android:layout_marginEnd="31dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:onClick="@{()->viewmodel.onClick()}"
+                android:paddingTop="5dp"
+                android:paddingBottom="8dp"
+                android:singleLine="true"
+                android:text="@{`预计用粉量：`+viewmodel.model.usage+`  g`}" />
+            <!--            -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="31dp"
+                android:text="@{viewmodel.model.time}" />
+            <!--            -->
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
